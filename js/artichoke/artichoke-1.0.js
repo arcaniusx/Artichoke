@@ -7,15 +7,18 @@
  */
 
 
-
-
-
-
 Artichoke = (function($){
     var
 
-    result = function(msg){
-        return (!msg) ? test = { msg : 'Test passed', result : true } : { msg : msg, result : false };
+    trace,
+
+    result = function(test){
+        var msg = test.msg;
+        return {
+            msg : (msg) ? msg : 'Test passed',
+            trace : trace,
+            result : (msg) ? false : true
+        };
     },
         
     api = function(el){
@@ -25,34 +28,66 @@ Artichoke = (function($){
 
         exists = function(){
             var msg,
+                matches = 0,
+                failed = 0,
                 selectors = el.split(','),
                 xl = selectors.length -1;
-
+            
             for(xl; xl>-1; xl--){
                 if($(selectors[xl]).length === 0){
-                    msg = 'Expected selector:'+selectors[xl]+' to exist';
+                    msg = 'Expected selector: '+selectors[xl]+' to exist';
+                    failed+=1;
                 }
+                matches += $(selectors[xl]).length;
             }
 
-            return result(msg);
+            trace.push({ step : 'exists', selector : el, matches : matches, failed : failed });
+            return result({msg : msg});
 
         },
 
+        inside = function(inner){
+            var msg,
+                error = 'Expected to see '+el+' inside of '+inner,
+                exists = api(el).exists();
+
+            if(!exists.result){
+                return exists;
+            }
+
+            $el.each(function(){
+                
+            });
+        },
+
         visible = function(){
-            var msg;
+            var msg,
+                matches = $el.length,
+                failed = 0,
+                error = 'Expected selector: '+$el.selector+' to be visible',
+                exists = api(el).exists();
+
+            if(!exists.result){
+                return exists;
+            }
+
             $el.each(function(){
                 if($(this).is(':hidden')){
-                    msg = 'Expected selector:'+$el.selector+' to be visible';
+                    failed+=1;
+                    msg = error;
                 }
             });
-            
-            return result(msg);
+
+            trace.push({ step : 'visible', selector : el, matches : matches, failed : failed });
+            return result({msg : msg});
         };
 
-
+        trace = [];
 
         return {
             exists : exists,
+
+            isInside : inside,
 
             isVisible : visible
         };
