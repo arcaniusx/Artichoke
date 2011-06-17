@@ -18,6 +18,16 @@
 
 
 
-    <div>x</div>
+    <div class="test">x</div>
+    <div class="test">x</div>
+    <div class="test">x</div>
+    <div class="test">x</div>
+    <div class="test" style="display:none;">x</div>
+    <div id="test" style="display:none;">x</div>
+
+    <script>
+        console.log(Artichoke(".test").isVisible());
+        console.log(Artichoke('#test, #test2').exists());
+    </script>
 </body>
 </html>
