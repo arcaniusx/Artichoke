@@ -7,7 +7,7 @@
  */
 
 
-Artichoke = (function($){
+var Artichoke = (function($){
     var
 
     trace,
@@ -15,7 +15,7 @@ Artichoke = (function($){
     result = function(test){
         var msg = test.msg;
         return {
-            msg : (msg) ? msg : 'Test passed',
+            msg : msg || 'Test passed',
             trace : trace,
             result : (msg) ? false : true
         };
@@ -38,7 +38,7 @@ Artichoke = (function($){
                 msg ='Expected selector: '+$el.selector+' to be a form element';
             }
 
-            if($el.val() != str){
+            if($el.val() !== str){
                 msg ='Expected selector: '+$el.selector+' to have a value equal to '+str;
             }
 
@@ -53,7 +53,7 @@ Artichoke = (function($){
                 selectors = el.split(','),
                 xl = selectors.length -1;
             
-            for(xl; xl>-1; xl--){
+            for(xl; xl>-1; xl-=1){
                 if($(selectors[xl]).length === 0){
                     msg = 'Expected selector: '+selectors[xl]+' to exist';
                     failed+=1;
