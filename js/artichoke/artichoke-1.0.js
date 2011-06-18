@@ -26,7 +26,27 @@ Artichoke = (function($){
         
         $el = $(el),
 
-        exists = function(){
+        equals = function(str){
+            var msg,
+                exists = api(el).exists(1);
+
+            if(!exists.result){
+                return exists;
+            }
+
+            if(!$el.is('input') && !$el.is('select')){
+                msg ='Expected selector: '+$el.selector+' to be a form element';
+            }
+
+            if($el.val() != str){
+                msg ='Expected selector: '+$el.selector+' to have a value equal to '+str;
+            }
+
+            trace.push({ step : 'exists', selector : el });
+            return result({msg : msg});
+        },
+
+        exists = function(expecting){
             var msg,
                 matches = 0,
                 failed = 0,
@@ -40,31 +60,70 @@ Artichoke = (function($){
                 }
                 matches += $(selectors[xl]).length;
             }
+            
+            if(matches > expecting){
+                msg = 'Expected to find only '+expecting+' elements, found multiple elements instead';
+            }
 
             trace.push({ step : 'exists', selector : el, matches : matches, failed : failed });
             return result({msg : msg});
 
         },
 
-        inside = function(inner){
-            var msg,
-                error = 'Expected to see '+el+' inside of '+inner,
-                exists = api(el).exists();
+        inside = function(e){
+            var inner = api(el).exists(1),
+                outer = api(e).exists(1),
+                msg;
+
+            if(!inner.result || !outer.result){
+                return (!inner.result) ? inner : outer;
+            }
+            
+            if($(e).find(el).length === 0){
+                msg ='Expected selector: '+$el.selector+' to be inside of selector: '+e;
+            }
+
+            trace.unshift({ step : 'inside', innerSelector : el,  outerSelector : e});
+            return result({msg : msg});
+        },
+
+        sibling = function(e){
+            var selector = api(el).exists(1),
+                sibling = api(e).exists(1),
+                msg;
+
+            if(!selector.result || !sibling.result){
+                return (!selector.result) ? selector : sibling;
+            }
+
+            if($el.siblings(e).length === 0){
+                msg ='Expected selector: '+$el.selector+' to be a sibling of selector: '+e;
+            }
+
+            trace.unshift({ step : 'sibling', selector : el,  sibling : e});
+            return result({msg : msg});
+        },
+
+        text = function(str){
+             var msg,
+                exists = api(el).exists(1);
 
             if(!exists.result){
                 return exists;
             }
 
-            $el.each(function(){
-                
-            });
+            if($(el+':contains('+str+')').length === 0){
+                msg = 'Expected selector: '+$el.selector+' to contain the text: '+str;
+            }
+
+            trace.unshift({ step : 'sibling', selector : el,  text : str});
+            return result({msg : msg});
         },
 
         visible = function(){
             var msg,
                 matches = $el.length,
                 failed = 0,
-                error = 'Expected selector: '+$el.selector+' to be visible',
                 exists = api(el).exists();
 
             if(!exists.result){
@@ -74,7 +133,7 @@ Artichoke = (function($){
             $el.each(function(){
                 if($(this).is(':hidden')){
                     failed+=1;
-                    msg = error;
+                    msg = 'Expected selector: '+$el.selector+' to be visible';
                 }
             });
 
@@ -85,10 +144,17 @@ Artichoke = (function($){
         trace = [];
 
         return {
+
+            equals : equals,
+
             exists : exists,
+
+            hasText : text,
 
             isInside : inside,
 
+            isSiblingOf : sibling,
+            
             isVisible : visible
         };
     };

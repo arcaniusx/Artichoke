@@ -8,14 +8,14 @@
 </head>
 <body>
 
-    Artichoke('#test').isVisible();
-    Artichoke('#test').exists();
-    Artichoke('#inner').isInside('#outer');
-    Artichoke('#first').comeBefore('#second');
-
-
-
-
+    <ul>
+        <li>Artichoke('#test').exists();</li>
+        <li>Artichoke('#test').isVisible();</li>
+        <li>Artichoke('#inner').isInside('#outer');</li>
+        <li>Artichoke('#first').isSiblingOf('#second');</li>
+        <li>Artichoke('#first').hasText('#second');</li>
+        <li>Artichoke('#input').equals('true');</li>
+    </ul>
 
 
     <div class="test">x</div>
@@ -25,14 +25,35 @@
     <div class="test" style="display:none;">x</div>
     <div id="test" style="display:none;">x</div>
 
-    <div id="outer">
-        <div id="inner"></div>
+
+    <div id="outer">s
+        <div id="inner">textTest</div>
+        <input name="input" id="input" value="true">
+        <select id="input2">
+            <option selected>true</option>
+            <option>false</option>
+        </select>
     </div>
+    <div id="outer2">s</div>
+
 
     <script>
-        console.log(Artichoke(".test").isVisible());
-        console.log(Artichoke('#test, #test2').exists());
-        console.log(Artichoke('inner').isInside('#outer'));
+//        console.log('testing visible');
+//        console.log(Artichoke(".test").isVisible());
+//        console.log(Artichoke(".test:not(:hidden)").isVisible());
+//        console.log('testing exists');
+//        console.log(Artichoke('#test, #test2').exists());
+//        console.log(Artichoke('#test, .test').exists());
+//        console.log('testing outer');
+//        console.log(Artichoke('#outer2').isInside('#outer'));
+//        console.log(Artichoke('#inner').isInside('#outer'));
+//        console.log('testing hasTests');
+//        console.log(Artichoke('#inner2').hasText('textTests'));
+//        console.log(Artichoke('#inner2').hasText('textTest'));
+        console.log('testing equals');
+        console.log(Artichoke('#inner').equals('true'));
+        console.log(Artichoke('#inner').equals('false'));
+        console.log(Artichoke('#input2').equals('true'));
     </script>
 </body>
 </html>
