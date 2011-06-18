@@ -9,12 +9,17 @@
 <body>
 
     <ul>
+        <li><h2>verification</h2></li>
         <li>Artichoke('#test').exists();</li>
         <li>Artichoke('#test').isVisible();</li>
         <li>Artichoke('#inner').isInside('#outer');</li>
         <li>Artichoke('#first').isSiblingOf('#second');</li>
         <li>Artichoke('#first').hasText('#second');</li>
         <li>Artichoke('#input').equals('true');</li>
+        <li><h2>interaction</h2></li>
+        <li>Artichoke('#input2').trigger('click');</li>
+        <li>Artichoke('#input2').set('test');</li>
+        <li>Artichoke('#input3').check('true');</li>
     </ul>
 
     <div class="test">x</div>
@@ -24,9 +29,11 @@
     <div class="test" style="display:none;">x</div>
     <div id="test" style="display:none;">x</div>
 
-    <div id="outer">s
-        <div id="inner">textTest</div>
+    <div id="outer" onclick="$(this).css('background', '#fcc')">
+        <div id="inner" onmouseover="$(this).css('background', '#ccf')">textTest</div>
         <input name="input" id="input" value="true">
+        <input name="radio" id="input3" value="test" type="radio">
+        <input name="checkbox" id="input4" value="test" type="checkbox">
         <select id="input2">
             <option selected>true</option>
             <option>false</option>
@@ -35,22 +42,34 @@
     <div id="outer2">s</div>
 
     <script>
-//        console.log('testing visible');
-//        console.log(Artichoke(".test").isVisible());
-//        console.log(Artichoke(".test:not(:hidden)").isVisible());
-//        console.log('testing exists');
-//        console.log(Artichoke('#test, #test2').exists());
-//        console.log(Artichoke('#test, .test').exists());
-//        console.log('testing outer');
-//        console.log(Artichoke('#outer2').isInside('#outer'));
-//        console.log(Artichoke('#inner').isInside('#outer'));
-//        console.log('testing hasTests');
-//        console.log(Artichoke('#inner2').hasText('textTests'));
-//        console.log(Artichoke('#inner2').hasText('textTest'));
+        console.log('testing visible');
+        console.log(Artichoke(".test").isVisible());
+        console.log(Artichoke(".test:not(:hidden)").isVisible());
+        console.log('testing exists');
+        console.log(Artichoke('#test, #test2').exists());
+        console.log(Artichoke('#test, .test').exists());
+        console.log('testing isInside');
+        console.log(Artichoke('#outer2').isInside('#outer'));
+        console.log(Artichoke('#inner').isInside('#outer'));
+        console.log('testing hasText');
+        console.log(Artichoke('#inner2').hasText('textTests'));
+        console.log(Artichoke('#inner, #outer').hasText('textTests'));
+        console.log(Artichoke('#inner').hasText('textTest'));
         console.log('testing equals');
         console.log(Artichoke('#inner').equals('true'));
-        console.log(Artichoke('#inner').equals('false'));
+        console.log(Artichoke('#input2').equals('false'));
         console.log(Artichoke('#input2').equals('true'));
+        console.log('testing trigger');
+        console.log(Artichoke('#outer').trigger('click'));
+        console.log(Artichoke('#inner').trigger('mouseover'));
+        console.log('testing set');
+        console.log(Artichoke('#inputs2').set('false'));
+        console.log(Artichoke('#input2').set('falsse'));
+        console.log(Artichoke('#input').set('new test'));
+        console.log('testing check');
+        console.log(Artichoke('#input5').check('true'));
+        console.log(Artichoke('#input3').check('true'));
+        console.log(Artichoke('#input4').check(true));
     </script>
 </body>
 </html>
