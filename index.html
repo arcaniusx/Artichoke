@@ -3,8 +3,10 @@
 <html>
 <head>
   <title></title>
-  <script src="js/jquery/jquery-1.6.min.js"></script>
+  <script src="js/jquery/jquery-1.6.1.min.js"></script>
   <script src="js/artichoke/artichoke-1.0.js"></script>
+  <!--<script src="https://raw.github.com/jquery/sizzle/master/sizzle.js"></script>-->
+  <!--<script src="http://s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.4-min.js"></script>-->
 </head>
 <body>
 
@@ -35,41 +37,50 @@
         <input name="radio" id="input3" value="test" type="radio">
         <input name="checkbox" id="input4" value="test" type="checkbox">
         <select id="input2">
-            <option selected>true</option>
-            <option>false</option>
+            <option selected value="true">true</option>
+            <option value="false">false</option>
         </select>
     </div>
-    <div id="outer2">s</div>
+    <div id="outer2" onclick="console.log(Artichoke('.old, div', '.new'));">click</div>
+  <div class="new">
+        <div class="old">old</div>
+    </div>
+    <div class="new" id="new" style="width:0; height:0;">
+        <div class="old">old</div>
+        <div class="old2">old</div>
+    </div>
+    <div class="old">old</div>
 
     <script>
-        console.log('testing visible');
-        console.log(Artichoke(".test").isVisible());
-        console.log(Artichoke(".test:not(:hidden)").isVisible());
-        console.log('testing exists');
-        console.log(Artichoke('#test, #test2').exists());
-        console.log(Artichoke('#test, .test').exists());
-        console.log('testing isInside');
-        console.log(Artichoke('#outer2').isInside('#outer'));
-        console.log(Artichoke('#inner').isInside('#outer'));
-        console.log('testing hasText');
-        console.log(Artichoke('#inner2').hasText('textTests'));
-        console.log(Artichoke('#inner, #outer').hasText('textTests'));
-        console.log(Artichoke('#inner').hasText('textTest'));
-        console.log('testing equals');
-        console.log(Artichoke('#inner').equals('true'));
-        console.log(Artichoke('#input2').equals('false'));
-        console.log(Artichoke('#input2').equals('true'));
-        console.log('testing trigger');
-        console.log(Artichoke('#outer').trigger('click'));
-        console.log(Artichoke('#inner').trigger('mouseover'));
-        console.log('testing set');
-        console.log(Artichoke('#inputs2').set('false'));
-        console.log(Artichoke('#input2').set('falsse'));
-        console.log(Artichoke('#input').set('new test'));
-        console.log('testing check');
-        console.log(Artichoke('#input5').check('true'));
-        console.log(Artichoke('#input3').check('true'));
-        console.log(Artichoke('#input4').check(true));
+//        console.log('testing visible');
+//        console.log(Artichoke(".test").isVisible());
+//        console.log(Artichoke(".test:not(:hidden)").isVisible());
+//        console.log('testing exists');
+//        console.log(Artichoke('#test2').exists());
+//        console.log(Artichoke('#test, #test2').exists());
+//        console.log(Artichoke('#test, .test').exists());
+//        console.log('testing isInside');
+//        console.log(Artichoke('#outer2').isInside('#outer'));
+//        console.log(Artichoke('#inner').equals('true'));
+//        console.log(Artichoke('#inner').isInside('#outer'));
+//        console.log('testing hasText');
+//        console.log(Artichoke('#inner2').hasText('textTests'));
+//        console.log(Artichoke('#inner, #outer').hasText('textTests'));
+//        console.log(Artichoke('#inner').hasText('textTest'));
+//        console.log('testing equals');
+//        console.log(Artichoke('#input2').equals('false'));
+//        console.log(Artichoke('#input2').equals('true'));
+//        console.log('testing trigger');
+//        console.log(Artichoke('#outer').trigger('click'));
+//        console.log(Artichoke('#inner').trigger('mouseover'));
+//        console.log('testing set');
+//        console.log(Artichoke('#inputs2').set('false'));
+//        console.log(Artichoke('#input2').set(true));
+//        console.log(Artichoke('#input').set('new test'));
+//        console.log('testing check');
+//        console.log(Artichoke('#input5').check('true'));
+//        console.log(Artichoke('#input3').check('true'));
+//        console.log(Artichoke('#input4').check(true));
     </script>
 </body>
 </html>
